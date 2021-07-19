@@ -1,0 +1,23 @@
+<!-- new 임 글 작성 페이지 -->
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<section class="page-section" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h1>새로 글 작성하기</h1>
+                <hr>
+                <form action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table>
+                        {{form.as_table}}
+                    </table>
+                <button class="btn btn-secondary btn-xl" type="submit">작성</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

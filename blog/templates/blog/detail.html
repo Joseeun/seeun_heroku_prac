@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<section class="page-section" id="services">
+    <div class="container px-4 px-lg-5">
+        <h2 class="text-center mt-0">제목 : {{ post.title }}</h2>
+        <hr class="divider" />
+        <p>날짜 : {{ post.pub_date }}</p>
+        <p>작성자 : {{post.writer}}</p>
+        <p>내용 : {{post.body}}</p>
+        <!-- 사진 확인-->
+        {% if posts.image %}
+            <img src="{{ post.image.url }}" width="250" height="250" alt="Card image cap">
+        {% endif %}
+        <br>
+
+        {% for hashtag in post.hashtags.all %}
+          <span>{{ hashtag.name }}</span>
+        {% endfor %}
+        <br>
+
+        <a href = "{% url 'edit' post.id %}">수정하기</a>
+        <a href="{% url 'delete' post.id %}">삭제하기</a>
+        <br>
+        <br>
+        <br>
+        {% for comment in post.comments.all %}
+            <p>{{comment.text}}</p>
+        {% endfor %}
+        <form method="POST" action="{% url 'detail' post.id %}">
+            {% csrf_token %}
+            <p>{{ form.as_p }}</p>
+            <input type="submit" value="submit">
+        </form>
+    </div>
+</section>
+{% endblock %}
